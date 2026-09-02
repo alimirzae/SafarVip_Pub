@@ -41,6 +41,23 @@ Invoke-WebRequest `
 - PowerShell با دسترسی Administrator
 - دسترسی خروجی HTTPS به GitHub
 
+## نصب Runner روی new.safar.vip
+
+Runner به مخزن خصوصی `alimirzae/safar` متصل می‌شود و نباید به مخزن عمومی متصل شود. از مسیر
+`Settings > Actions > Runners > New self-hosted runner` مخزن خصوصی، توکن موقت Windows x64
+را دریافت کنید و روی سرور در PowerShell مدیریتی اجرا کنید:
+
+```powershell
+Invoke-WebRequest `
+  -Uri "https://github.com/alimirzae/SafarVip_Pub/raw/main/Install-SafarRunner.ps1" `
+  -OutFile ".\Install-SafarRunner.ps1"
+
+.\Install-SafarRunner.ps1 -RegistrationToken "TOKEN_FROM_PRIVATE_REPOSITORY"
+```
+
+Runner با نام `new.safar.vip`، برچسب `safar-production` و به‌صورت Windows Service نصب می‌شود.
+Workflow استقرار فقط به‌صورت دستی از مخزن خصوصی اجرا خواهد شد.
+
 ## نکته امنیتی
 
 سورس اصلی به دلیل وجود تنظیمات محرمانه قدیمی در تاریخچه پروژه در مخزن خصوصی نگهداری می‌شود. این مخزن عمومی فقط خروجی قابل استقرار و ابزار به‌روزرسانی را ارائه می‌کند.
