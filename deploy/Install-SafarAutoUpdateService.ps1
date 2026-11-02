@@ -106,7 +106,7 @@ switch ($Action) {
         $triggerStartup = New-ScheduledTaskTrigger -AtStartup
         $triggerRepeat = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(15) `
             -RepetitionInterval (New-TimeSpan -Minutes $IntervalMinutes) `
-            -RepetitionDuration ([TimeSpan]::MaxValue)
+            -RepetitionDuration (New-TimeSpan -Days 3650)
 
         # Principal: Run with SYSTEM account and highest elevation
         $principal = New-ScheduledTaskPrincipal -UserId "NT AUTHORITY\SYSTEM" -LogonType ServiceAccount -RunLevel Highest
