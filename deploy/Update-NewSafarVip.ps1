@@ -69,6 +69,14 @@ function Run-Update {
   if($CheckOnly){Log "Update available: $hash (check only).";return}
   Expand-Archive -LiteralPath $zip -DestinationPath $stage -Force
   if(-not(Test-Path -LiteralPath (Join-Path $stage 'Safar.dll'))){throw 'Invalid package: Safar.dll missing at root'}
+  $qrDll=Join-Path $stage 'QRCoder.dll'
+  if(-not(Test-Path -LiteralPath $qrDll)){
+   throw 'Invalid release: QRCoder.dll is missing; IIS was not stopped and no files were changed.'
+  }
+  $qrVersion=[System.Reflection.AssemblyName]::GetAssemblyName($qrDll).Version
+  if($qrVersion -ne [version]'1.8.1.0'){
+   throw "Invalid release: QRCoder.dll must be assembly version 1.8.1.0, got $qrVersion. IIS was not stopped."
+  }
   $files=@(Get-ChildItem -LiteralPath $stage -File -Recurse)
   $root=[IO.Path]::GetFullPath($stage).TrimEnd('\')+'\'
   $copyList=@()
