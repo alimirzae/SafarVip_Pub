@@ -174,13 +174,13 @@ switch ($Action) {
             NextRunTime    = $info.NextRunTime
         } | Format-List
 
-        $versionFile = 'C:\SafarDeployBackups\installed_version.json'
+        $versionFile = Join-Path $BackupRoot 'installed_version.json'
         if (Test-Path -LiteralPath $versionFile) {
             Write-Host "--- Current Installed Version ---" -ForegroundColor Cyan
             Get-Content -LiteralPath $versionFile -Raw
         }
 
-        $logPath = 'C:\SafarDeployBackups\autoupdate.log'
+        $logPath = Join-Path $BackupRoot 'autoupdate.log'
         if (Test-Path -LiteralPath $logPath) {
             Write-Host "--- Last 15 log entries (from $logPath) ---" -ForegroundColor Yellow
             Get-Content -LiteralPath $logPath -Tail 15
@@ -190,7 +190,7 @@ switch ($Action) {
     'RunNow' {
         Write-Host ">>> Triggering '$TaskName' immediately..." -ForegroundColor Cyan
         Start-ScheduledTask -TaskName $TaskName
-        Write-Host "Task started. Check log in C:\SafarDeployBackups\autoupdate.log." -ForegroundColor Green
+        Write-Host "Task started. Check log in $BackupRoot\autoupdate.log." -ForegroundColor Green
     }
 
     'Restart' {
