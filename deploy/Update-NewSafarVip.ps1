@@ -74,7 +74,7 @@ function Run-Update {
   $copyList=@()
   foreach($file in $files){
    $rel=$file.FullName.Substring($root.Length)
-   $rootDll=($rel -notmatch '[\\/]' -and @('Safar.dll','Safar.Views.dll','System.Drawing.Common.dll','Microsoft.Win32.SystemEvents.dll') -contains $rel)
+   $rootDll=($rel -notmatch '[\\/]' -and @('Safar.dll','Safar.Views.dll','System.Drawing.Common.dll','Microsoft.Win32.SystemEvents.dll','QRCoder.dll') -contains $rel)
    $webFile=($rel -like 'Views\*' -or $rel -like 'wwwroot\css\*' -or $rel -like 'wwwroot\js\*' -or $rel -like 'wwwroot\fonts\*')
    if(-not($rootDll -or $webFile)){throw "Unexpected package entry: $rel"}
    $dest=[IO.Path]::GetFullPath((Join-Path $sitePath $rel))
